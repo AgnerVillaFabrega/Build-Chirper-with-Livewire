@@ -1,17 +1,18 @@
 <?php
-use Livewire\Attributes\Validate;// [tl! add]
+use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 new class extends Component
 {
-    #[Validate('required|string|max:255')]// [tl! add]
+    #[Validate('required|string|max:255')]
     public string $message = '';
-    // [tl! add:start]
     public function store(): void
     {
         $validated = $this->validate();
         auth()->user()->chirps()->create($validated);
         $this->message = '';
-    } // [tl! add:end]
+
+        $this->dispatch('chirp-created'); 
+    }
 }; ?>
 <div>
     <form wire:submit="store">
