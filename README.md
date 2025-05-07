@@ -48,3 +48,12 @@ Adoptamos una estructura de ramas clara y mantenible:
 #### 🚨 Parche Urgente en Producción
 - `hotfix/fix-env-vars`  
 - `hotfix/fix-payment-gateway`
+
+
+## Uso del proyecto
+```bash
+# Levantar el proyecto
+php artisan serve
+# Ejecutar el worker de colas para las notificaciones
+php artisan queue:work
+```
