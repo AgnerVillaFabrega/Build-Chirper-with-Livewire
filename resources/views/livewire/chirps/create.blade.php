@@ -1,12 +1,20 @@
 <?php
+use Livewire\Attributes\Validate;// [tl! add]
 use Livewire\Volt\Component;
 new class extends Component
 {
-    public string $message = ''; 
+    #[Validate('required|string|max:255')]// [tl! add]
+    public string $message = '';
+    // [tl! add:start]
+    public function store(): void
+    {
+        $validated = $this->validate();
+        auth()->user()->chirps()->create($validated);
+        $this->message = '';
+    } // [tl! add:end]
 }; ?>
 <div>
-    // <!-- [tl! remove] -->
-    <form wire:submit="store"> 
+    <form wire:submit="store">
         <textarea
             wire:model="message"
             placeholder="{{ __('What\'s on your mind?') }}"
@@ -14,5 +22,5 @@ new class extends Component
         ></textarea>
         <x-input-error :messages="$errors->get('message')" class="mt-2" />
         <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
-    </form> <!-- [tl! add:end] -->
+    </form>
 </div>

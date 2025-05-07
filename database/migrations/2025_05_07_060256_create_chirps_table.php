@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('chirps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();// [tl! add]
+            $table->string('message');// [tl! add]
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
